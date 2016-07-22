@@ -1,12 +1,10 @@
 package com.yang.runner;
 
-import com.yang.entity.TestBoot;
-import com.yang.repository.TestBootRepository;
+import com.yang.vo.TestBoot;
+import com.yang.dao.TestBootRepository;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-
-import javax.sql.DataSource;
 
 /**
  * Created with IntelliJ IDEA.

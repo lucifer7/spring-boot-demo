@@ -1,4 +1,4 @@
-package com.yang.entity;
+package com.yang.vo;
 
 import lombok.Data;
 

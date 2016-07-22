@@ -1,10 +1,8 @@
-package com.yang.repository;
+package com.yang.dao;
 
-import com.yang.entity.TestBoot;
+import com.yang.vo.TestBoot;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-
-import javax.persistence.criteria.CriteriaBuilder;
 
 /**
  * Created with IntelliJ IDEA.
