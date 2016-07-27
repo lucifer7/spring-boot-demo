@@ -9,10 +9,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 @SpringBootApplication
 public class MainApplication {
-    @Bean
+    /*@Bean
     public StartupRunner schedulerRunner() {
         return new StartupRunner();
-    }
+    }*/
 
     public static void main(String[] args) {
         SpringApplication.run(MainApplication.class, args);

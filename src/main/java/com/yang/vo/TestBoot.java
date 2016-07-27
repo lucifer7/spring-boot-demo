@@ -19,4 +19,11 @@ public class TestBoot {
     @GeneratedValue
     private Integer id;
     private String value;
+
+    public TestBoot() {
+    }
+
+    public TestBoot(String value) {
+        this.value = value;
+    }
 }
