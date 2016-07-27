@@ -5,8 +5,10 @@ import com.yang.dao.TestBootRepository;
 import com.yang.vo.TestBoot;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -36,7 +38,7 @@ public class TestBootController {
         return result;
     }
 
-    @RequestMapping(method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})    /* 新增使用POST, 非幂等操作 */
+    @RequestMapping(method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})    /* 新增使用POST, 非幂等操作 */
     public Map<String, Object> addTestBoot(TestBoot testBoot) {
         testBoot = testBootRepository.save(testBoot);
 
@@ -44,5 +46,21 @@ public class TestBootController {
         result.put("message", "TestBoot saved successfully.");
         result.put("data", testBoot);
         return result;
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE}) /* PUT failed */
+    public Map<String, Object> updateTestBoot(@PathVariable Integer id,  TestBoot testBoot) {
+        testBoot.setId(id);
+        testBoot = testBootRepository.save(testBoot);
+
+        Map<String, Object> result = Maps.newHashMap();
+        result.put("message", "TestBoot updated successfully.");
+        result.put("data", testBoot);
+        return result;
+    }
+
+    @RequestMapping(value = "/session", method = RequestMethod.GET)
+    public String getSession(HttpServletRequest request) {
+        return  request.getSession().getId();
     }
 }
