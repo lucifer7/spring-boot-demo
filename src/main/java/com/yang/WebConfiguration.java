@@ -1,10 +1,16 @@
 package com.yang;
 
+import com.yang.monitor.DbCountHealthIndicator;
 import org.apache.catalina.filters.RemoteIpFilter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.health.CompositeHealthIndicator;
+import org.springframework.boot.actuate.health.HealthAggregator;
+import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -13,6 +19,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -24,6 +31,9 @@ import java.util.concurrent.TimeUnit;
  **/
 @Configuration
 public class WebConfiguration extends WebMvcConfigurerAdapter {
+    @Autowired
+    private HealthAggregator healthAggregator;
+
     @Bean
     public RemoteIpFilter remoteIpFilter() {
         return new RemoteIpFilter();
@@ -69,5 +79,14 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/properties/**")
                 .addResourceLocations("classpath:/");
+    }
+
+    @Bean
+    public HealthIndicator dbCountHealthIndicator(Collection<CrudRepository> repositories) {
+        CompositeHealthIndicator compositeHealthIndicator = new CompositeHealthIndicator(healthAggregator);
+        for (CrudRepository repository : repositories) {    // get name from repository
+            compositeHealthIndicator.addHealthIndicator("Guess name", new DbCountHealthIndicator(repository));
+        }
+        return  compositeHealthIndicator;
     }
 }
