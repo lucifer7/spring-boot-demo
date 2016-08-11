@@ -22,27 +22,27 @@ public class BudgetDto {
         this.budget = budget;
     }
 
-    public class Budget {
-        private BidAmount accountDaily;
-        private BidAmount maximumBid;
+    private class Budget {
+        private BidAmount account_daily;
+        private BidAmount maximum_bid;
 
         public Budget() {
         }
 
-        public BidAmount getAccountDaily() {
-            return accountDaily;
+        public BidAmount getAccount_daily() {
+            return account_daily;
         }
 
-        public void setAccountDaily(BidAmount accountDaily) {
-            this.accountDaily = accountDaily;
+        public void setAccount_daily(BidAmount account_daily) {
+            this.account_daily = account_daily;
         }
 
-        public BidAmount getMaximumBid() {
-            return maximumBid;
+        public BidAmount getMaximum_bid() {
+            return maximum_bid;
         }
 
-        public void setMaximumBid(BidAmount maximumBid) {
-            this.maximumBid = maximumBid;
+        public void setMaximum_bid(BidAmount maximum_bid) {
+            this.maximum_bid = maximum_bid;
         }
     }
 
@@ -70,10 +70,4 @@ public class BudgetDto {
         }
     }
 
-    @Override
-    public String toString() {
-        return "BudgetDto{" +
-                "budget=" + budget +
-                '}';
-    }
 }
