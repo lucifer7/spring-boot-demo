@@ -7,7 +7,7 @@ import java.util.List;
  * User: Jingyi.Yang
  * Date: 2016/8/11
  **/
-public class Feed {
+public class FeedDto {
     private String kind;
 
     private List<Results> results ;
