@@ -3,6 +3,7 @@ package com.yang.controller;
 import com.google.common.collect.Maps;
 import com.yang.dao.TestBootRepository;
 import com.yang.vo.TestBoot;
+import lombok.extern.log4j.Log4j;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -19,6 +20,7 @@ import java.util.Map;
  **/
 @RestController
 @RequestMapping("/test-boot")
+@Log4j
 public class TestBootController {
     @Autowired
     private TestBootRepository testBootRepository;
@@ -48,10 +50,13 @@ public class TestBootController {
         return result;
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE}) /* PUT failed */
-    public Map<String, Object> updateTestBoot(@PathVariable Integer id,  TestBoot testBoot) {
-        testBoot.setId(id);
-        testBoot = testBootRepository.save(testBoot);
+    //@RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE}) /* PUT failed */
+    // MIND: 不要在URL中传参，不要使用与GET相同的URL，有时时间详细测试
+    @RequestMapping(value = "/put", method = RequestMethod.PUT)
+    public @ResponseBody Map<String, Object> updateTestBoot(@RequestBody TestBoot testBoot) {
+        //testBoot.setId(id);
+        log.info(testBoot.toString());
+        //testBoot = testBootRepository.save(testBoot);
 
         Map<String, Object> result = Maps.newHashMap();
         result.put("message", "TestBoot updated successfully.");
