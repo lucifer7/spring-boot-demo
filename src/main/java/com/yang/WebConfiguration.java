@@ -1,6 +1,7 @@
 package com.yang;
 
 import com.yang.monitor.DbCountHealthIndicator;
+import com.yang.runner.DbCountRunner;
 import org.apache.catalina.filters.RemoteIpFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.health.CompositeHealthIndicator;
@@ -81,12 +82,20 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
                 .addResourceLocations("classpath:/");
     }
 
+    /* Repository 计数与监控 */
+    @Bean
+    public DbCountRunner dbCountRunner(Collection<CrudRepository> repositories) {
+        return new DbCountRunner(repositories);
+    }
+
     @Bean
     public HealthIndicator dbCountHealthIndicator(Collection<CrudRepository> repositories) {
         CompositeHealthIndicator compositeHealthIndicator = new CompositeHealthIndicator(healthAggregator);
         for (CrudRepository repository : repositories) {    // get name from repository
-            compositeHealthIndicator.addHealthIndicator("Guess name", new DbCountHealthIndicator(repository));
+            String name = DbCountRunner.getRepositoryName(repository.getClass());
+            compositeHealthIndicator.addHealthIndicator(name, new DbCountHealthIndicator(repository));
         }
         return  compositeHealthIndicator;
     }
+
 }
