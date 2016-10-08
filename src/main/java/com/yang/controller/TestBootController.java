@@ -51,6 +51,11 @@ public class TestBootController {
     }
 
     //@RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE}) /* PUT failed */
+    // 注意测试时传参
+    /* {
+    "id": 2,
+    "value": "value from put"
+} */
     // MIND: 不要在URL中传参，不要使用与GET相同的URL，有时时间详细测试
     @RequestMapping(value = "/put", method = RequestMethod.PUT)
     public @ResponseBody Map<String, Object> updateTestBoot(@RequestBody TestBoot testBoot) {

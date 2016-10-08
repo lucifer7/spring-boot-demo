@@ -11,10 +11,11 @@
     <name>spring-boot-demo</name>
     <description>Demo project for Spring Boot</description>
 
+    <!-- Usage: Manage the version of dependencies -->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.3.6.RELEASE</version>
+        <version>1.4.1.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -22,13 +23,30 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <lombok.version>1.16.6</lombok.version>
         <spring-reloaded.version>1.2.5.RELEASE</spring-reloaded.version>
+        <spring-boot-admin.version>1.3.2</spring-boot-admin.version>
         <commons-lang.version>2.4</commons-lang.version>
         <commons-lang3.version>3.3.2</commons-lang3.version>
         <guava.version>17.0</guava.version>
         <gson.version>2.6.2</gson.version>
+        <lombok.version>1.16.6</lombok.version>
     </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>springloaded</artifactId>
+                        <version>${spring-reloaded.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
 
     <dependencies>
         <dependency>
@@ -70,52 +88,55 @@
             <groupId>com.jayway.jsonpath</groupId>
             <artifactId>json-path</artifactId>
         </dependency>
-        <!-- REST Repository -->
+        <!-- REST Repository start -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-rest</artifactId>
         </dependency>
-        <!-- 单元测试 -->
+        <!-- REST Repository end -->
+        <!-- Mock for Unit test start -->
         <dependency>
             <groupId>org.springframework.restdocs</groupId>
             <artifactId>spring-restdocs-mockmvc</artifactId>
             <scope>test</scope>
         </dependency>
-        <!-- Spring boot admin starts -->
+        <!-- Mock for Unit test end -->
+        <!-- Spring boot admin start -->
         <dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-server</artifactId>
-            <version>1.3.2</version>
+            <version>${spring-boot-admin.version}</version>
         </dependency>
         <dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-server-ui</artifactId>
-            <version>1.3.2</version>
+            <version>${spring-boot-admin.version}</version>
         </dependency>
         <dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-client</artifactId>
-            <version>1.3.2</version>
+            <version>${spring-boot-admin.version}</version>
         </dependency>
-        <!-- Spring boot admin ends -->
-        <!-- Remote JMX with json over http -->
+        <!-- Spring boot admin end -->
+        <!-- Remote JMX start --> <!-- JMX with json over http -->
         <dependency>
             <groupId>org.jolokia</groupId>
             <artifactId>jolokia-core</artifactId>
         </dependency>
-        <!-- Remote JMX ends -->
+        <!-- Remote JMX end -->
         <!-- 热启动 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
         </dependency>
-        <!-- database connector -->
+        <!-- database connector start -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
         </dependency>
+        <!-- database connector end -->
 
         <!-- project common jar start -->
         <dependency>
@@ -152,30 +173,13 @@
             <artifactId>json</artifactId>
             <version>20160212</version>
         </dependency>
-        <!-- AOP starts -->
+        <!-- project common jar end -->
+        <!-- AOP start -->
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
             <version>1.8.9</version>
         </dependency>
-        <!-- AOP ends -->
+        <!-- AOP end -->
     </dependencies>
-    <!-- project common jar end -->
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>springloaded</artifactId>
-                        <version>${spring-reloaded.version}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-        </plugins>
-    </build>
-
-
 </project>
