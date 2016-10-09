@@ -137,6 +137,12 @@
             <scope>runtime</scope>
         </dependency>
         <!-- database connector end -->
+        <!-- MQ start -->  <!-- Support AMQP by spring-rabbit -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+        <!-- MQ end -->
 
         <!-- project common jar start -->
         <dependency>
