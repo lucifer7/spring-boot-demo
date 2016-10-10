@@ -1,6 +1,7 @@
 package com.yang;
 
 import com.yang.mq.Receiver;
+import com.yang.mq.Sender;
 import de.codecentric.boot.admin.config.EnableAdminServer;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
@@ -26,22 +27,22 @@ public class MainApplication {
     public StartupRunner schedulerRunner() {
         return new StartupRunner();
     }*/
-    private static final String queueName = "spring-boot";
-    private static final String topic = "amq.topic";
+    private static final String QUEUE_NAME = "spring-boot";
+    private static final String EXCHANGE = "spring-boot-exchange";
 
     @Bean
     Queue queue() {
-        return new Queue(queueName);
+        return new Queue(QUEUE_NAME);
     }
 
     @Bean
     TopicExchange exchange() {
-        return new TopicExchange(topic);
+        return new TopicExchange(EXCHANGE);
     }
 
     @Bean
     Binding binding(Queue queue, TopicExchange exchange) {
-        return BindingBuilder.bind(queue).to(exchange).with(queueName);
+        return BindingBuilder.bind(queue).to(exchange).with(QUEUE_NAME);
     }
 
     @Bean
@@ -51,7 +52,7 @@ public class MainApplication {
 
     @Bean
     MessageListenerAdapter listenerAdapter(Receiver receiver) {
-        return new MessageListenerAdapter(receiver, "receiveMsg");
+        return new MessageListenerAdapter(receiver, "receiveMessage");
     }
 
     @Bean
@@ -59,8 +60,13 @@ public class MainApplication {
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
         container.setMessageListener(listenerAdapter);
-        container.setQueueNames(queueName);
+        container.setQueueNames(QUEUE_NAME);
         return container;
+    }
+
+    @Bean
+    public Sender mySender() {
+        return new Sender();
     }
 
     public static void main(String[] args) {

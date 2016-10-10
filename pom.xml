@@ -10,7 +10,16 @@
 
     <name>spring-boot-demo</name>
     <description>Demo project for Spring Boot</description>
-
+    <!--
+               Spring Boot应用启动器Starter-parent:
+               官方推荐
+               其中集成了：
+               1、使用java6编译级别
+               2、使用utf-8编码
+               3、实现了通用的测试框架 (JUnit, Hamcrest, Mockito).
+               4、智能资源过滤
+               5、智能的插件配置(exec plugin, surefire, Git commit ID, shade).
+           -->
     <!-- Usage: Manage the version of dependencies -->
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -61,6 +70,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
+        <!-- try security --> <!-- https://spring.io/guides/gs/securing-web/ -->
         <!--<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
