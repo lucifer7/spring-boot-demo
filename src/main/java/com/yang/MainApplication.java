@@ -12,10 +12,12 @@ import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication  /* 该应用程序入口的标志 */    // or use below instead
 @EnableAdminServer      /* Spring boot admin */
+@EnableCaching          /* 开启缓存 */
 
 /* @SpringBootApplication includes the following four annotations */
 //@ComponentScan    //组件扫描，自动发现和装配bean

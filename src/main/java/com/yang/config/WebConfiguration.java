@@ -1,4 +1,4 @@
-package com.yang;
+package com.yang.config;
 
 import com.yang.monitor.DbCountHealthIndicator;
 import com.yang.runner.DbCountRunner;

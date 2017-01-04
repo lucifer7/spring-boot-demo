@@ -3,6 +3,7 @@ package com.yang.controller;
 import com.google.common.collect.Maps;
 import com.yang.dao.TestBootRepository;
 import com.yang.vo.TestBoot;
+import com.yang.vo.TestUser;
 import lombok.extern.log4j.Log4j;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Collection;
 import java.util.Map;
 
 /**
@@ -55,9 +57,11 @@ public class TestBootController {
     /* {
     "id": 2,
     "value": "value from put"
-} */
-    // MIND: 不要在URL中传参，不要使用与GET相同的URL，有时时间详细测试
-    @RequestMapping(value = "/put", method = RequestMethod.PUT)
+}       http://127.0.0.1:8090/test-boot/
+*/
+    // MIND: 不要在URL中传参，注意URL
+    //@RequestMapping(value = "/put", method = RequestMethod.PUT)
+    @RequestMapping(value = "/", method = RequestMethod.PUT)
     public @ResponseBody Map<String, Object> updateTestBoot(@RequestBody TestBoot testBoot) {
         //testBoot.setId(id);
         log.info(testBoot.toString());
@@ -68,6 +72,13 @@ public class TestBootController {
         result.put("data", testBoot);
         return result;
     }
+
+    // http://127.0.0.1:8090/test-boot/?value=test171   // using cache
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public TestBoot getUserByName(@RequestParam(name = "value") String value) {
+        return testBootRepository.findTestBootByValue(value);
+    }
+
 
     @RequestMapping(value = "/session", method = RequestMethod.GET)
     public String getSession(HttpServletRequest request) {

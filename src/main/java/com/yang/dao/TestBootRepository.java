@@ -1,6 +1,8 @@
 package com.yang.dao;
 
 import com.yang.vo.TestBoot;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,6 +13,8 @@ import org.springframework.stereotype.Repository;
  * Time: 17:31
  **/
 @Repository
+@CacheConfig(cacheNames = "boots")
 public interface TestBootRepository extends CrudRepository<TestBoot, Integer> {
+    @Cacheable
     TestBoot findTestBootByValue(String value);
 }
